@@ -26,13 +26,13 @@ public class AlertVerticle extends BaseVerticle {
         .compose(exists -> {
           final Future<?> future;
           if(exists) {
-            log.debug("Alert file " + alertFile + " already exists");
+            log.debug("Alert file " + filePath + " already exists");
             future = Future.succeededFuture();
           } else {
-            log.info("Creating file " + alertFile);
+            log.info("Creating file " + filePath);
             future = vertx.fileSystem().createFile(filePath)
-              .onSuccess(v -> log.info(alertFile + " created"))
-              .onFailure(error -> log.error("Could not create file " + alertFile));
+              .onSuccess(v -> log.info(filePath + " created"))
+              .onFailure(error -> log.error("Could not create file " + filePath));
           }
           return future;
       })
@@ -47,6 +47,7 @@ public class AlertVerticle extends BaseVerticle {
   private void logAlert(Message<JsonObject> message) {
     alertFile.write(Buffer.buffer(message.body().toString()));
     alertFile.write(Buffer.buffer("\n"));
+    message.reply("ack");
   }
 
 }

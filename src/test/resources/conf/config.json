@@ -26,6 +26,6 @@
     {"type": "CLIENT_VERSION", "weight": 1},
     {"type": "IP", "weight": 1}
   ],
-  "alertFile": "alert.log",
+  "alertFile": "alert-test.log",
   "threshold": 4
 }

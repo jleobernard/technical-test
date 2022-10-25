@@ -1,0 +1,31 @@
+{
+  "server": {
+    "port": 8001
+  },
+  "userCredentials": [
+    {
+      "email": "jleobernard@gmail.com",
+      "password": "password1"
+    },
+    {
+      "email": "account@mail.com",
+      "password": "password2"
+    }
+  ],
+  "weights": [
+    {"type": "NOTHING", "weight": 100},
+    {"type": "DEVICE_TYPE", "weight": 4},
+    {"type": "DEVICE_BRAND", "weight": 4},
+    {"type": "DEVICE_MODEL", "weight": 4},
+    {"type": "OS_NAME", "weight": 4},
+    {"type": "OS_FAMILY", "weight": 4},
+    {"type": "OS_PLATFORM", "weight": 4},
+    {"type": "OS_VERSION", "weight": 1},
+    {"type": "CLIENT_TYPE", "weight": 4},
+    {"type": "CLIENT_NAME", "weight": 1},
+    {"type": "CLIENT_VERSION", "weight": 1},
+    {"type": "IP", "weight": 1}
+  ],
+  "alertFile": "alert.log",
+  "threshold": 4
+}

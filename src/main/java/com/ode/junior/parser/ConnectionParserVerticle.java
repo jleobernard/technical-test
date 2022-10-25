@@ -24,6 +24,7 @@ public class ConnectionParserVerticle extends BaseVerticle {
   @Override
   protected void startWithConfiguration(Promise<Void> startPromise) {
       eventBus.consumer(INCOMING_REQUEST, this::parse);
+      startPromise.complete();
   }
 
   private void parse(Message<JsonObject> message) {

@@ -59,6 +59,7 @@ public class UserConnectionCheckerVerticle extends BaseVerticle {
         log.debug("No alert to send for " + userPrincipal + "'s current connection");
       }
     });
+    message.reply("ack");
   }
 
   private UserConnectionCheckResult compareConnections(final UserConnection storedConnection, final UserConnection currentConnection) {

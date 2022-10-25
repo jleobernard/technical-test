@@ -186,5 +186,5 @@ nbdist/
 
 .idea/
 .mvn/
-alert.log
+alert*.log
 .editorconfig

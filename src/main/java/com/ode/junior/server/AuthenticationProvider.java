@@ -25,7 +25,7 @@ public class AuthenticationProvider implements io.vertx.ext.auth.authentication.
 
   @Override
   public void authenticate(JsonObject credentials, Handler<AsyncResult<User>> resultHandler) {
-    System.out.println("Coucou");
+
   }
 
   @Override

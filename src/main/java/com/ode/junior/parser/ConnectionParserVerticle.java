@@ -48,38 +48,38 @@ public class ConnectionParserVerticle extends BaseVerticle {
       parsedValues = new HashMap<>();
       parsedValues.put(ConnectionInformationType.DEVICE_TYPE, getDeviceType(userAgentModel));
       parsedValues.put(ConnectionInformationType.DEVICE_BRAND, getDeviceBrand(client));
-      parsedValues.put(ConnectionInformationType.OS_NAME, getOsName(client, userAgentModel));
-      parsedValues.put(ConnectionInformationType.OS_FAMILY, getOsFamily(client, userAgentModel));
-      parsedValues.put(ConnectionInformationType.OS_VERSION, getOsVersion(client, userAgentModel));
-      parsedValues.put(ConnectionInformationType.CLIENT_NAME, getClientName(client, userAgentModel));
-      parsedValues.put(ConnectionInformationType.CLIENT_TYPE, getClientType(client, userAgentModel));
-      parsedValues.put(ConnectionInformationType.CLIENT_VERSION, getClientVersion(client, userAgentModel, userAgent));
+      parsedValues.put(ConnectionInformationType.OS_NAME, getOsName(userAgentModel));
+      parsedValues.put(ConnectionInformationType.OS_FAMILY, getOsFamily(userAgentModel));
+      parsedValues.put(ConnectionInformationType.OS_VERSION, getOsVersion(client));
+      parsedValues.put(ConnectionInformationType.CLIENT_NAME, getClientName(userAgentModel));
+      parsedValues.put(ConnectionInformationType.CLIENT_TYPE, getClientType(userAgentModel));
+      parsedValues.put(ConnectionInformationType.CLIENT_VERSION, getClientVersion(userAgentModel, userAgent));
     }
     log.debug("Parsed values are " + parsedValues);
     return parsedValues;
   }
 
-  private String getClientVersion(Client client, UserAgent userAgentModel, final String rawUserAgent) {
+  private String getClientVersion(UserAgent userAgentModel, final String rawUserAgent) {
     return userAgentModel.getBrowser().getVersion(rawUserAgent).getVersion();
   }
 
-  private String getClientType(Client client, UserAgent userAgentModel) {
+  private String getClientType(UserAgent userAgentModel) {
     return userAgentModel.getBrowser().getBrowserType().getName();
   }
 
-  private String getClientName(Client client, UserAgent userAgentModel) {
+  private String getClientName(UserAgent userAgentModel) {
     return userAgentModel.getBrowser().getGroup().getName();
   }
 
-  private String getOsVersion(Client client, UserAgent userAgentModel) {
+  private String getOsVersion(Client client) {
     return client.userAgent.major + "." + client.userAgent.minor;
   }
 
-  private String getOsFamily(Client client, UserAgent userAgentModel) {
+  private String getOsFamily(UserAgent userAgentModel) {
     return userAgentModel.getOperatingSystem().getGroup().getName();
   }
 
-  private String getOsName(Client client, UserAgent userAgentModel) {
+  private String getOsName(UserAgent userAgentModel) {
     return userAgentModel.getOperatingSystem().getName();
   }
 

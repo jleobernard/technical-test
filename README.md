@@ -92,6 +92,10 @@ champs suivants ont été traités :
     * Client_name
     * Client_version
     * IP
+* Les informations de connexion des utilisateurs sont stockées dans un champ propre au verticle `UserConnectionStoreVerticle`. Si ce verticle est
+déployé plusieurs fois cela donnera donc lieu à des incohérences. En production il faudrait que ce verticle récupère les informations de la base de
+données.
+
 
 # Organisation du projet
 

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static com.ode.junior.TestUtils.sendMessagesSequentially;
 import static com.ode.junior.utils.EventMessageType.ALERT;
+import static com.ode.junior.utils.EventMessageType.UPDATE_CONNECTION_DETAILS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(VertxExtension.class)
@@ -121,6 +122,27 @@ public class TestCheckerVerticle {
     if (testContext.failed()) {
       throw testContext.causeOfFailure();
     }
+  }
+
+  @Test
+  void do_not_save_user_connection_when_first_connection_and_no_ua(Vertx vertx, VertxTestContext testContext) throws Throwable {
+    final UserConnection userConnection = new UserConnection("user@foo.com",
+      Map.of(ConnectionInformationType.IP, "110.0.1.2",
+        ConnectionInformationType.NOTHING, "true"));
+    final UserConnectionForRoute conn1 = new UserConnectionForRoute(
+      userConnection,
+      "/protected/route1"
+    );
+    sendMessagesSequentially(List.of(conn1), vertx);
+    final EventBus eventBus = vertx.eventBus();
+    eventBus.consumer(UPDATE_CONNECTION_DETAILS, message -> testContext.verify(() ->
+      testContext.failNow("Should not have tried to save the details")
+    ));
+    testContext.awaitCompletion(3, TimeUnit.SECONDS);
+    if (testContext.failed()) {
+      throw testContext.causeOfFailure();
+    }
+    testContext.completeNow();
   }
 
 }

@@ -45,7 +45,11 @@ public class UserConnectionCheckerVerticle extends BaseVerticle {
       if (storedConnection.body() == null) {
         log.debug("This is " + userPrincipal + "'s first connection");
         score = new UserConnectionCheckResult(0, emptyList());
-        send(UPDATE_CONNECTION_DETAILS, userConnection);
+        if("true".equals(userConnection.details().getOrDefault(ConnectionInformationType.NOTHING, "false"))) {
+          log.debug("Not storing user connection details as they lack a user agent");
+        } else {
+          send(UPDATE_CONNECTION_DETAILS, userConnection);
+        }
       } else {
         log.debug("Got " + userPrincipal + "'s connection details");
         score = compareConnections(getMessageBodyAs(storedConnection, UserConnection.class), userConnection);
